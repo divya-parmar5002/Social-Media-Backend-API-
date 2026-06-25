@@ -53,4 +53,4 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 # User wants to make a post -> post function has a dependency (get_current_user) -> This dependency redirects the call
 # to the verify function -> this decodes the token, checks if there is an ID and returns it. If there is not an
 # ID, raises an error.
-# qué pasa si el usuario no existe? Se verifica en get_current_user
+
