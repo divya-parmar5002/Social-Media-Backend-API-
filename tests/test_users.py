@@ -6,9 +6,9 @@ import pytest
 
 def test_create_user(client):
     res = client.post(
-        "/users/", json={"email": "daniel123@cuyama.com", "password": "12345"})
+        "/users/", json={"email": "divyaparmar@gmail.com", "password": "12345"})
     new_user = schemas.CreatedUser(**res.json())
-    assert new_user.email == "daniel123@cuyama.com"
+    assert new_user.email == "divyaparmar@gmail.com"
     assert res.status_code == 201
 
 
@@ -24,10 +24,10 @@ def test_login(client, test_user):
 
 @pytest.mark.parametrize("email, password, status_code", [
     ('wrongemail@gmail.com', '12345', 403),
-    ('daniel@cuyama.com', 'wrongpassword', 403),
+    ('divyaparmar@gmail.com', 'wrongpassword', 403),
     ('wrongemail@gmail.com', 'wrongpassword', 403),
     (None, '12345', 422),
-    ('daniel@cuyama.com', None, 422)
+    ('divyaparmar@gmail.com', None, 422)
 ])
 def test_incorrect_login(client, test_user, email, password, status_code):
     response = client.post("/login", data={"username": email, "password": password})
