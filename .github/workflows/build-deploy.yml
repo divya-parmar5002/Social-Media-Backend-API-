@@ -6,8 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    environment:
-      name: testing
+    #environment:
+     # name: testing
 
     env:
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
