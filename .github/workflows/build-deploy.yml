@@ -64,7 +64,13 @@ jobs:
       - name: Check PostgreSQL Host
         run: |
           getent hosts postgres || true
+      
+      - name: Check Docker Containers
+        run: docker ps -a
 
+      - name: Show PostgreSQL Logs
+        run: docker logs $(docker ps -aq --filter "ancestor=postgres") || true
+        
       - name: Wait for PostgreSQL
         run: |
           for i in {1..30}; do
