@@ -38,7 +38,7 @@ def client(session):
 
 @pytest.fixture
 def test_user(client) -> dict:
-    user_data = {"email": "daniel@cuyama.com", "password": "12345"}
+    user_data = {"email": "divyaparmar@gmail.com", "password": "12345"}
     res = client.post("/users/", json=user_data)
     assert res.status_code == 201
     new_user = res.json()
@@ -48,7 +48,7 @@ def test_user(client) -> dict:
 
 @pytest.fixture
 def test_user_2(client):
-    user_data = {"email": "daniel1@cuyama.com", "password": "12345"}
+    user_data = {"email": "divyaparmar@gmail.com", "password": "12345"}
     res = client.post("/users/", json=user_data)
     assert res.status_code == 201
     new_user = res.json()
