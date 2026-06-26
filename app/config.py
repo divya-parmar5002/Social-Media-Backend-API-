@@ -16,3 +16,8 @@ class Settings(BaseSettings):
 
 
 Settings = Settings()
+print("========== CONFIG ==========")
+print("HOST:", Settings.db_hostname)
+print("USER:", Settings.db_username)
+print("DB:", Settings.db_name)
+print("============================")

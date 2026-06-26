@@ -52,6 +52,17 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
+      - name: Find DB_HOSTNAME
+        run: |
+          grep -R "DB_HOSTNAME" .  
+
+      - name: Print Database URL
+        run: |
+          python - <<EOF
+          from app.database import SQLALCHEMY_DATABASE_URL
+          print(SQLALCHEMY_DATABASE_URL)
+          EOF    
+
       # ---------------- DEBUGGING ----------------
 
       - name: Debug Environment Variables
@@ -72,27 +83,27 @@ jobs:
         run: docker logs $(docker ps -aq --filter "ancestor=postgres") || true
 
      
-      - name: Verify DB Connection
-        run: |
-          python - <<EOF
-          import os
-          import psycopg2
+      # - name: Verify DB Connection
+      #   run: |
+      #     python - <<EOF
+      #     import os
+      #     import psycopg2
 
-          print("HOST =", os.environ["DB_HOSTNAME"])
-          print("USER =", os.environ["DB_USERNAME"])
-          print("DB   =", os.environ["DB_NAME"])
+      #     print("HOST =", os.environ["DB_HOSTNAME"])
+      #     print("USER =", os.environ["DB_USERNAME"])
+      #     print("DB   =", os.environ["DB_NAME"])
 
-          conn = psycopg2.connect(
-              host=os.environ["DB_HOSTNAME"],
-              user=os.environ["DB_USERNAME"],
-              password=os.environ["DB_PASSWORD"],
-              port=os.environ["DB_PORT"],
-              dbname=os.environ["DB_NAME"] + "_test"
-          )
+      #     conn = psycopg2.connect(
+      #         host=os.environ["DB_HOSTNAME"],
+      #         user=os.environ["DB_USERNAME"],
+      #         password=os.environ["DB_PASSWORD"],
+      #         port=os.environ["DB_PORT"],
+      #         dbname=os.environ["DB_NAME"] + "_test"
+      #     )
 
-          print("DATABASE CONNECTED SUCCESSFULLY")
-          conn.close()
-          EOF
+      #     print("DATABASE CONNECTED SUCCESSFULLY")
+      #     conn.close()
+      #     EOF
 
       # ---------------- TEST ----------------
 
