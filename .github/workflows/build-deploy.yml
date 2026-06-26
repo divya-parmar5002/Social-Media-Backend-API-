@@ -56,12 +56,15 @@ jobs:
         run: |
           grep -R "DB_HOSTNAME" .  
 
-      - name: Print Database URL
-        run: |
-          python - <<EOF
-          from app.database import SQLALCHEMY_DATABASE_URL
-          print(SQLALCHEMY_DATABASE_URL)
-          EOF    
+      - name: Print Environment From Python 
+        run: | 
+          python -c " 
+          import os
+          print('HOST=', os.getenv('DB_HOSTNAME')) 
+          print('USER=', os.getenv('DB_USERNAME')) 
+          print('PORT=', os.getenv('DB_PORT')) 
+          print('DB=', os.getenv('DB_NAME'))
+          "
 
       # ---------------- DEBUGGING ----------------
 
@@ -71,6 +74,15 @@ jobs:
           echo "USER=$DB_USERNAME"
           echo "PORT=$DB_PORT"
           echo "DB=$DB_NAME"
+
+      - name: Test DNS
+        run: |
+          python -c "
+          import socket
+          print(socket.gethostbyname('postgres'))
+          "    
+
+
 
       - name: Check PostgreSQL Host
         run: |
